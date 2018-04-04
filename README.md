@@ -16,9 +16,13 @@ A set of extensions for the Angular CLI.
 
 ### Testing schematics
 
+A schematic to set up CI and testing patterns
+
 #### Example
 
-`ng g @thisissoon/schematics:testing --ci=travis`
+```
+ng g @thisissoon/schematics:testing --ci=travis
+```
 
 #### Options
 
@@ -28,6 +32,15 @@ default(`travis`)
   * `travis`
   * `circle`
   * `gitlab`
+
+### Universal + Express schematics
+
+A schematic to set up angular universal and an express server
+#### Example
+
+```
+ng g @thisissoon/schematics:universal-express
+```
 
 ## Development
 

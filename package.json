@@ -16,7 +16,9 @@
     "testing",
     "circle",
     "travis",
-    "gitlab"
+    "gitlab",
+    "universal",
+    "express"
   ],
   "author": "SOON_ <dorks@thisissoon.com>",
   "contributors": [
