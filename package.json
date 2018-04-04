@@ -1,15 +1,31 @@
 {
   "name": "@thisissoon/schematics",
-  "version": "0.0.0",
-  "description": "A blank schematics",
+  "version": "1.0.0-alpha.0",
+  "private": false,
+  "description": "A set of extensions for the Angular CLI",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && jasmine **/*_spec.js"
+    "test": "npm run build && jasmine **/*_spec.js",
+    "release": "standard-version",
+    "postrelease": "npm run build"
   },
   "keywords": [
-    "schematics"
+    "schematics",
+    "angular",
+    "ci",
+    "testing",
+    "circle",
+    "travis",
+    "gitlab"
   ],
-  "author": "",
+  "author": "SOON_ <dorks@thisissoon.com>",
+  "contributors": [
+    "Ed Opare-Aryee <ed@thisissoon.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thisissoon/schematics"
+  },
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
@@ -22,7 +38,8 @@
     "typescript": "^2.5.2"
   },
   "devDependencies": {
-    "cz-conventional-changelog": "^2.1.0"
+    "cz-conventional-changelog": "^2.1.0",
+    "standard-version": "^4.3.0"
   },
   "config": {
     "commitizen": {
