@@ -17,7 +17,6 @@ import * as data from './data';
 import { TestingSchema } from './schema.model';
 
 export default function(options: TestingSchema): Rule {
-  console.log(JSON.stringify(options, null, 2));
 
   return (tree: Tree, context: SchematicContext) => {
     options.name = getPackageName(tree);

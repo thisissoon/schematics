@@ -1,0 +1,20 @@
+#
+# CircleCI configuration for soon schematics
+#
+
+version: 2
+jobs:
+  build:
+    working_directory: ~/schematics
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: npm i --no-progress
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run: npm run test

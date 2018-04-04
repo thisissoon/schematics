@@ -5,6 +5,10 @@
       "description": "A schematic to set up CI and testing patterns",
       "factory": "./testing/index",
       "schema": "./testing/schema.json"
+    },
+    "universal-express": {
+      "description": "A schematic to set up angular universal and an express server",
+      "factory": "./universal-express/index"
     }
   }
 }
