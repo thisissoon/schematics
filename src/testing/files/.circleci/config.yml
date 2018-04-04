@@ -1,0 +1,23 @@
+#
+# CircleCI configuration for <%= name %>
+#
+
+version: 2
+jobs:
+  build:
+    working_directory: ~/<%= name %>
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: npm i --no-progress
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run: npm run lint
+      - run: npm run test -- --single-run --code-coverage --no-progress
+      - run: npm run e2e -- --no-progress
+      - run: npm run coverage

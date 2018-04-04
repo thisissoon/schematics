@@ -1,0 +1,45 @@
+#
+# Gitlab configuration for <%= name %>
+#
+
+# Stages
+stages:
+  - setup
+  - test
+
+#
+# Setup Stage
+#
+
+# Setup project
+setup:
+  stage: setup
+  image: circleci/node:8-browsers
+  artifacts:
+    name: "node_modules_${CI_BUILD_REF_NAME}"
+    expire_in: 1d
+    paths:
+      - node_modules
+  script:
+    - npm i --no-progress
+
+#
+# Test Stage
+#
+
+# Test Unit
+test_unit:
+  stage: test
+  image: circleci/node:8-browsers
+  script:
+    - npm run lint
+    - npm run test -- --no-progress --single-run --code-coverage
+
+# Test Integration
+test_integration:
+  stage: test
+  image: circleci/node:8-browsers
+  script:
+    - npm run e2e -- --no-progress
+
+

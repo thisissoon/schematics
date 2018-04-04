@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsTesting",
+  "title": "Testing schemantics options",
+  "type": "object",
+  "properties": {
+    "ci": {
+      "type": "string",
+      "description": "The path to create the component.",
+      "enum": ["circle", "travis", "gitlab"],
+      "default": "gitlab",
+      "visible": true
+    }
+  },
+  "required": []
+}
