@@ -1,6 +1,35 @@
-# Getting Started With Schematics
+# SOON_ Schematics
 
-This repository is a basic Schematic implementation that serves as a starting point to create and publish Schematics to NPM.
+A set of extensions for the Angular CLI.
+
+## Install
+
+### via NPM
+
+`npm i @thisissoon/schematics --save-dev`
+
+### via Yarn
+
+`yarn add @thisissoon/schematics --dev`
+
+## Usage
+
+### Testing schematics
+
+#### Example
+
+`ng g @thisissoon/schematics:testing --ci=travis`
+
+#### Options
+
+##### `ci`
+default(`travis`)
+
+  * `travis`
+  * `circle`
+  * `gitlab`
+
+## Development
 
 ### Testing
 
@@ -25,4 +54,3 @@ npm publish
 ```
 
 That's it!
- 
