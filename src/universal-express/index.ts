@@ -19,7 +19,6 @@ import { InsertChange } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
 
 export default function(options: UniversalSchema): Rule {
-  // console.log(JSON.stringify(options, null, 2));
 
   return (tree: Tree, context: SchematicContext) => {
     options.clientProject = getProjectName(tree);
