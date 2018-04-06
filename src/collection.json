@@ -5,6 +5,11 @@
       "description": "A schematic to set up CI and testing patterns",
       "factory": "./testing/index",
       "schema": "./testing/schema.json"
+    },
+    "docker": {
+      "description": "A schematic to build docker image",
+      "factory": "./docker/index",
+      "schema": "./docker/schema.json"
     }
   }
 }

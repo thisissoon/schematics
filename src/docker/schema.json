@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsDocker",
+  "title": "Docker schematics options",
+  "type": "object",
+  "properties": {
+    "universal": {
+      "type": "boolean",
+      "description": "Set to true if using server side rendering",
+      "default": true,
+      "visible": true
+    }
+  },
+  "required": []
+}
