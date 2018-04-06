@@ -71,7 +71,7 @@ function updatePackageJson(): Rule {
     pkgJson.dependencies['@nguniversal/express-engine'] = '^5.0.0';
     pkgJson.dependencies['@nguniversal/module-map-ngfactory-loader'] = '^5.0.0';
     pkgJson.dependencies['express'] = '^4.16.3';
-    pkgJson.dependencies['ts-loader'] = '^4.1.0';
+    pkgJson.dependencies['ts-loader'] = '^3.5.0';
 
     pkgJson.scripts['build:ssr'] = 'npm run build:client-and-server-bundles && npm run webpack:server';
     pkgJson.scripts['serve:ssr'] = 'node dist/server.js';
