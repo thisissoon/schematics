@@ -18,11 +18,6 @@ const app = express();
 const port = process.env.PORT || 4000;
 const distFolder = join(process.cwd(), 'dist');
 
-// Our index.html we'll use as our template
-const template = readFileSync(
-  join(distFolder, 'browser', 'index.html')
-).toString();
-
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const {
   AppServerModuleNgFactory,
