@@ -21,7 +21,7 @@ import * as ts from 'typescript';
 export default function(options: UniversalSchema): Rule {
 
   return (tree: Tree, context: SchematicContext) => {
-    options.clientProject = getProjectName(tree);
+    // options.clientProject = getProjectName(tree);
 
     const templateSource = apply(url('./files'), [
       template({
@@ -42,17 +42,6 @@ export default function(options: UniversalSchema): Rule {
       ])),
     ])(tree, context);
   };
-}
-
-function getProjectName(tree: Tree): string {
-  const buffer = tree.read('/.angular-cli.json');
-  let name: string;
-  if (buffer === null) {
-    name = 'myApp';
-  } else {
-    name = JSON.parse(buffer.toString()).project.name;
-  }
-  return name;
 }
 
 function updatePackageJson(): Rule {
