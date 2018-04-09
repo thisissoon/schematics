@@ -15,6 +15,7 @@ import { strings } from '@angular-devkit/core';
 
 import { DockerSchema } from './schema.model';
 import { getPackageName } from '../utils/npm';
+import { getDockerReadMeText } from './data';
 
 export default function(options: DockerSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
@@ -40,10 +41,29 @@ export default function(options: DockerSchema): Rule {
 
     return chain([
       branchAndMerge(chain([
-        mergeWith(templateSource)
+        mergeWith(templateSource),
+        updateReadme(options)
       ])),
     ])(tree, context);
   };
+}
+
+function updateReadme(options: DockerSchema): Rule {
+  return (tree: Tree, _context: SchematicContext) => {
+    const readMeFile = 'README.md';
+    const buffer = tree.read(readMeFile);
+    let content: string = '';
+
+    if (buffer) {
+      content = buffer.toString();
+    }
+
+    content += getDockerReadMeText(options.name);
+
+    tree.overwrite(readMeFile, content);
+
+    return tree;
+  }
 }
 
 

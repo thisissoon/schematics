@@ -2,6 +2,7 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import { Schema as ApplicationOptions } from '@schematics/angular/application/schema';
 import { Schema as WorkspaceOptions } from '@schematics/angular/workspace/schema';
 import * as path from 'path';
+import { getDockerReadMeText } from './data';
 
 
 const angularCollectionPath = path.join(__dirname, '../../node_modules/@schematics/angular/collection.json');
@@ -79,6 +80,18 @@ describe('docker', () => {
       const contents = appTree.readContent(filePath);
       expect(contents).toMatch(/CMD forever/);
       expect(contents).not.toMatch(/CMD nginx/);
+    });
+  });
+
+  describe('README', () => {
+    beforeEach(() => {
+      appTree = runner.runSchematic('docker', { domain: 'example.com' }, appTree);
+    });
+
+    it('should update README', () => {
+      const filePath = '/README.md';
+      const contents = appTree.readContent(filePath);
+      expect(contents).toContain(getDockerReadMeText('workspace'));
     });
   });
 
