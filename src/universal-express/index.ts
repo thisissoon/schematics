@@ -12,12 +12,13 @@ import {
   SchematicsException
 } from '@angular-devkit/schematics';
 import { strings } from '@angular-devkit/core';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { Schema as UniversalSchema } from '@schematics/angular/universal/schema';
 import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
+
 import { universalReadMeText } from './data';
+import { addNPMInstallTask } from '../utils/npm';
 
 export default function(options: UniversalSchema): Rule {
 
@@ -137,8 +138,4 @@ function updateReadme(): Rule {
 
     return tree;
   }
-}
-
-function addNPMInstallTask(context: SchematicContext) {
-  context.addTask(new NodePackageInstallTask());
 }

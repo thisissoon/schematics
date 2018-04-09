@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsDocker",
+  "title": "Docker schematics options",
+  "type": "object",
+  "properties": {
+    "universal": {
+      "type": "boolean",
+      "description": "Set to true if using server side rendering",
+      "default": false,
+      "visible": true
+    },
+    "domain": {
+      "type": "string",
+      "description": "The domain name where application will be deployed. Only required for non server-side rendered apps",
+      "visible": true
+    }
+  },
+  "required": []
+}

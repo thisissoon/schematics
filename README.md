@@ -26,8 +26,10 @@ ng g @thisissoon/schematics:testing --ci=travis
 
 #### Options
 
-##### `ci`
+##### `ci`: string
 default(`travis`)
+
+One of:
 
   * `travis`
   * `circle`
@@ -41,6 +43,22 @@ A schematic to set up angular universal and an express server
 ```
 ng g @thisissoon/schematics:universal-express
 ```
+### Docker schematics
+
+#### Example
+
+`ng g @thisissoon/schematics:docker`
+
+#### Options
+
+##### `universal`: boolean
+default(`false`)
+
+Set to true if using a server side rendered app
+
+##### `domain`: string
+Required if `universal` option is set to `false`
+
 
 ## Development
 
