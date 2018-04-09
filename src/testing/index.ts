@@ -11,10 +11,10 @@ import {
   filter
 } from '@angular-devkit/schematics';
 import { strings } from '@angular-devkit/core';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
 import * as data from './data';
 import { TestingSchema } from './schema.model';
+import { getPackageName, addNPMInstallTask } from '../utils/npm';
 
 export default function(options: TestingSchema): Rule {
   console.log(JSON.stringify(options, null, 2));
@@ -66,17 +66,6 @@ function filterConfig(options: TestingSchema): Rule {
   }
 
   return filterToApply;
-}
-
-function getPackageName(tree: Tree): string {
-  const buffer = tree.read('/package.json');
-  let name: string;
-  if (buffer === null) {
-    name = 'app';
-  } else {
-    name = JSON.parse(buffer.toString()).name;
-  }
-  return name;
 }
 
 function updatePackageJson(): Rule {
@@ -135,8 +124,4 @@ function updateProtractorConfig(): Rule {
 
     tree.overwrite(protractorPath, sourceText);
   }
-}
-
-function addNPMInstallTask(context: SchematicContext) {
-  context.addTask(new NodePackageInstallTask());
 }
