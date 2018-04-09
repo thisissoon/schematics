@@ -6,6 +6,10 @@
       "factory": "./testing/index",
       "schema": "./testing/schema.json"
     },
+    "linting": {
+      "description": "A schematic to set up and police code formatting rules",
+      "factory": "./linting/index"
+    },
     "universal-express": {
       "description": "A schematic to set up angular universal and an express server",
       "factory": "./universal-express/index"
