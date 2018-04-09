@@ -17,6 +17,7 @@ import { Schema as UniversalSchema } from '@schematics/angular/universal/schema'
 import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
+import { universalReadMeText } from './data';
 
 export default function(options: UniversalSchema): Rule {
 
@@ -38,7 +39,8 @@ export default function(options: UniversalSchema): Rule {
         addModuleToServerModule(),
         mergeWith(templateSource),
         updateCliConfig(),
-        updatePackageJson()
+        updatePackageJson(),
+        updateReadme()
       ])),
     ])(tree, context);
   };
@@ -117,6 +119,24 @@ function addModuleToServerModule(): Rule {
 
     return tree;
   };
+}
+
+function updateReadme(): Rule {
+  return (tree: Tree, _context: SchematicContext) => {
+    const readMeFile = 'README.md';
+    const buffer = tree.read(readMeFile);
+    let content: string = '';
+
+    if (buffer) {
+      content = buffer.toString();
+    }
+
+    content += universalReadMeText;
+
+    tree.overwrite(readMeFile, content);
+
+    return tree;
+  }
 }
 
 function addNPMInstallTask(context: SchematicContext) {
