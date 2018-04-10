@@ -59,6 +59,16 @@ Set to true if using a server side rendered app
 ##### `domain`: string
 Required if `universal` option is set to `false`
 
+### License schematic
+
+#### Example
+
+`ng g @thisissoon/schematics:license --name SOON_`
+
+#### Options
+
+##### `name`: string
+
 
 ## Development
 

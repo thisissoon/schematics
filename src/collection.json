@@ -18,6 +18,11 @@
       "description": "A schematic to build docker image",
       "factory": "./docker/index",
       "schema": "./docker/schema.json"
+    },
+    "license": {
+      "description": "A schematic that generates a license file",
+      "factory": "./license/index",
+      "schema": "./license/schema.json"
     }
   }
 }
