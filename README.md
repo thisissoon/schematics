@@ -69,6 +69,12 @@ Required if `universal` option is set to `false`
 
 ##### `name`: string
 
+### Commits schematic
+A schematic to setup conventional commits and changelog generation
+
+#### Example
+
+`ng g @thisissoon/schematics:commits`
 
 ## Development
 

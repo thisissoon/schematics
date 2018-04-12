@@ -6,7 +6,7 @@ import * as path from 'path';
 const angularCollectionPath = path.join(__dirname, '../../node_modules/@schematics/angular/collection.json');
 const collectionPath = path.join(__dirname, '../collection.json');
 
-describe('testing', () => {
+describe('commits', () => {
   const angularSchematicRunner = new SchematicTestRunner(
     '@schematics/angular',
     angularCollectionPath
@@ -18,7 +18,7 @@ describe('testing', () => {
   );
 
   const workspaceOptions: WorkspaceOptions = {
-    name: 'foo',
+    name: 'workspace',
     newProjectRoot: 'projects',
     version: '1.7.0',
   };
@@ -39,30 +39,17 @@ describe('testing', () => {
   beforeEach(() => {
     appTree = angularSchematicRunner.runSchematic('workspace', workspaceOptions);
     appTree = angularSchematicRunner.runSchematic('application', appOptions, appTree);
+    appTree = runner.runSchematic('commits', {}, appTree);
   });
 
-  it('should generate Travis CI config', () => {
-    appTree = runner.runSchematic('testing', { ci: 'travis' }, appTree);
-    const filePath = '/.travis.yml';
-    expect(appTree.exists(filePath)).toBeTruthy();
-    const contents = appTree.readContent(filePath);
-    expect(contents).toMatch(/TravisCI configuration for foo/);
-  });
+  it('should update package json', () => {
+    const filePath = '/package.json';
 
-  it('should generate Circle CI config', () => {
-    appTree = runner.runSchematic('testing', { ci: 'circle' }, appTree);
-    const filePath = '/.circleci/config.yml';
     expect(appTree.exists(filePath)).toBeTruthy();
-    const contents = appTree.readContent(filePath);
-    expect(contents).toMatch(/CircleCI configuration for foo/);
-  });
+    const contents = JSON.parse(appTree.readContent(filePath));
 
-  it('should generate GitLab CI config', () => {
-    appTree = runner.runSchematic('testing', { ci: 'gitlab' }, appTree);
-    const filePath = '/.gitlab-ci.yml';
-    expect(appTree.exists(filePath)).toBeTruthy();
-    const contents = appTree.readContent(filePath);
-    expect(contents).toMatch(/Gitlab configuration for foo/);
+    expect(contents.devDependencies['cz-conventional-changelog']).toEqual('^2.1.0');
+    expect(contents.devDependencies['standard-version']).toEqual('^4.3.0');
+    expect(contents.scripts['release']).toEqual('standard-version');
   });
 });
-

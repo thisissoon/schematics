@@ -23,6 +23,10 @@
       "description": "A schematic that generates a license file",
       "factory": "./license/index",
       "schema": "./license/schema.json"
+    },
+    "commits": {
+      "description": "A schematic to setup conventional commits and changelog generation",
+      "factory": "./commits/index"
     }
   }
 }
