@@ -43,7 +43,6 @@ A schematic to set up angular universal and an express server
 ```
 ng g @thisissoon/schematics:universal-express
 ```
-
 ### Docker schematics
 
 #### Example
@@ -59,6 +58,16 @@ Set to true if using a server side rendered app
 
 ##### `domain`: string
 Required if `universal` option is set to `false`
+
+### License schematic
+
+#### Example
+
+`ng g @thisissoon/schematics:license --name SOON_`
+
+#### Options
+
+##### `name`: string
 
 ### Commits schematic
 A schematic to setup conventional commits and changelog generation

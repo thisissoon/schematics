@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsLicense",
+  "title": "License schemantics options",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of copyright holder",
+      "default": "",
+      "visible": true
+    }
+  },
+  "required": ["name"]
+}
