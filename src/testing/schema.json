@@ -6,9 +6,9 @@
   "properties": {
     "ci": {
       "type": "string",
-      "description": "The path to create the component.",
+      "description": "Name of CI service to use",
       "enum": ["circle", "travis", "gitlab"],
-      "default": "gitlab",
+      "default": "travis",
       "visible": true
     }
   },

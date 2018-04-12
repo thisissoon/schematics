@@ -6,75 +6,73 @@ A set of extensions for the Angular CLI.
 
 ### via NPM
 
-`npm i @thisissoon/schematics --save-dev`
+```bash
+npm i @thisissoon/schematics --save-dev
+```
 
 ### via Yarn
 
-`yarn add @thisissoon/schematics --dev`
+```bash
+yarn add @thisissoon/schematics --dev
+```
 
-## Usage
 
-### Testing schematics
+## Schematics
 
+### Testing schematic
 A schematic to set up CI and testing patterns
 
-#### Example
-
+```bash
+ng g @thisissoon/schematics:testing --ci travis
 ```
-ng g @thisissoon/schematics:testing --ci=travis
-```
+#### Options:
+* ci (`string`): name of CI service to use. One of  `travis` | `circle` | `gitlab` (default: `travis`)
 
-#### Options
 
-##### `ci`: string
-default(`travis`)
+### Universal Express schematic
+A schematic to set up angular universal with express.js
 
-One of:
-
-  * `travis`
-  * `circle`
-  * `gitlab`
-
-### Universal + Express schematics
-
-A schematic to set up angular universal and an express server
-#### Example
-
-```
+```bash
 ng g @thisissoon/schematics:universal-express
 ```
-### Docker schematics
 
-#### Example
 
-`ng g @thisissoon/schematics:docker`
+### Docker schematic
+A schematic that generates a `DOCKERFILE` to build a docker image
 
-#### Options
+```bash
+ng g @thisissoon/schematics:docker
+```
+#### Options:
+* universal (`boolean`): Set to true if using a server side rendered app (default: `false`)
+* domain (`string`): Example: `thisissoon.com` Required if `universal` option is set to `false`.
 
-##### `universal`: boolean
-default(`false`)
-
-Set to true if using a server side rendered app
-
-##### `domain`: string
-Required if `universal` option is set to `false`
 
 ### License schematic
+A schematic to generate a MIT license file
 
-#### Example
+```bash
+ng g @thisissoon/schematics:license --name SOON_
+```
+#### Options:
+* name (`string`): Name of license holder e.g. `SOON_`
 
-`ng g @thisissoon/schematics:license --name SOON_`
-
-#### Options
-
-##### `name`: string
 
 ### Commits schematic
 A schematic to setup conventional commits and changelog generation
 
-#### Example
+```bash
+ng g @thisissoon/schematics:commits
+```
 
-`ng g @thisissoon/schematics:commits`
+
+### Linting schematic
+A schematic to set up and police code formatting rules
+
+```bash
+ng g @thisissoon/schematics:linting
+```
+
 
 ## Development
 

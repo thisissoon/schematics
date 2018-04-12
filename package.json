@@ -18,7 +18,15 @@
     "travis",
     "gitlab",
     "universal",
-    "express"
+    "express",
+    "linting",
+    "docker",
+    "ng-express",
+    "ng-docker",
+    "ng-testing",
+    "ng-linting",
+    "ng-universal-express",
+    "ng-license"
   ],
   "author": "SOON_ <dorks@thisissoon.com>",
   "contributors": [
