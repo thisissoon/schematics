@@ -84,11 +84,13 @@ function updatePackageJson(): Rule {
     const buffer = tree.read(pkgJsonPath);
     let pkgJson;
     if (buffer === null) {
-      pkgJson = { devDependencies: {} };
+      pkgJson = { devDependencies: {}, scripts: {} };
     } else {
       pkgJson = JSON.parse(buffer.toString());
     }
     pkgJson.devDependencies['karma-spec-reporter'] = '0.0.32';
+    pkgJson.devDependencies['coveralls'] = '^3.0.0';
+    pkgJson.scripts['coverage'] = 'coveralls < coverage/lcov.info';
 
     tree.overwrite(pkgJsonPath, JSON.stringify(pkgJson, null, 2));
   }

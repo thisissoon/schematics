@@ -22,8 +22,6 @@ import { universalReadMeText } from './data';
 export default function(options: UniversalSchema): Rule {
 
   return (tree: Tree, context: SchematicContext) => {
-    // options.clientProject = getProjectName(tree);
-
     const templateSource = apply(url('./files'), [
       template({
         ...strings,
@@ -138,6 +136,7 @@ function updateReadme(): Rule {
     return tree;
   }
 }
+
 
 function addNPMInstallTask(context: SchematicContext) {
   context.addTask(new NodePackageInstallTask());
