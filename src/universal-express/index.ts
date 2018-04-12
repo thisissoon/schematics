@@ -23,8 +23,6 @@ import { addNPMInstallTask } from '../utils/npm';
 export default function(options: UniversalSchema): Rule {
 
   return (tree: Tree, context: SchematicContext) => {
-    // options.clientProject = getProjectName(tree);
-
     const templateSource = apply(url('./files'), [
       template({
         ...strings,

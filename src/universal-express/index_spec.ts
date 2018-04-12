@@ -1,4 +1,3 @@
-// import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { Schema as UniversalOptions } from '@schematics/angular/universal/schema';
 import { Schema as ApplicationOptions } from '@schematics/angular/application/schema';
