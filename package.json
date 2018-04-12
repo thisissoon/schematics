@@ -16,7 +16,9 @@
     "testing",
     "circle",
     "travis",
-    "gitlab"
+    "gitlab",
+    "universal",
+    "express"
   ],
   "author": "SOON_ <dorks@thisissoon.com>",
   "contributors": [
@@ -29,13 +31,13 @@
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^0.5.0",
-    "@angular-devkit/schematics": "^0.5.0",
-    "@schematics/angular": "^0.5.0",
+    "@angular-devkit/core": "^0.5.4",
+    "@angular-devkit/schematics": "^0.5.4",
+    "@schematics/angular": "^0.5.4",
     "@types/jasmine": "^2.6.0",
     "@types/node": "^8.0.31",
     "jasmine": "^2.8.0",
-    "typescript": "^2.5.2"
+    "typescript": "^2.6.2"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^2.1.0",

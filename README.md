@@ -16,9 +16,13 @@ A set of extensions for the Angular CLI.
 
 ### Testing schematics
 
+A schematic to set up CI and testing patterns
+
 #### Example
 
-`ng g @thisissoon/schematics:testing --ci=travis`
+```
+ng g @thisissoon/schematics:testing --ci=travis
+```
 
 #### Options
 
@@ -47,6 +51,14 @@ Set to true if using a server side rendered app
 ##### `domain`: string
 Required if `universal` option is set to `false`
 
+### Universal + Express schematics
+
+A schematic to set up angular universal and an express server
+#### Example
+
+```
+ng g @thisissoon/schematics:universal-express
+```
 
 ## Development
 
