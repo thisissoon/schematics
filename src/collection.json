@@ -6,14 +6,18 @@
       "factory": "./testing/index",
       "schema": "./testing/schema.json"
     },
-    "docker": {
-      "description": "A schematic to build docker image",
-      "factory": "./docker/index",
-      "schema": "./docker/schema.json"
+    "linting": {
+      "description": "A schematic to set up and police code formatting rules",
+      "factory": "./linting/index"
     },
     "universal-express": {
       "description": "A schematic to set up angular universal and an express server",
       "factory": "./universal-express/index"
+    },
+    "docker": {
+      "description": "A schematic to build docker image",
+      "factory": "./docker/index",
+      "schema": "./docker/schema.json"
     }
   }
 }

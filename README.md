@@ -35,6 +35,15 @@ One of:
   * `circle`
   * `gitlab`
 
+### Universal + Express schematics
+
+A schematic to set up angular universal and an express server
+#### Example
+
+```
+ng g @thisissoon/schematics:universal-express
+```
+
 ### Docker schematics
 
 #### Example
@@ -50,15 +59,6 @@ Set to true if using a server side rendered app
 
 ##### `domain`: string
 Required if `universal` option is set to `false`
-
-### Universal + Express schematics
-
-A schematic to set up angular universal and an express server
-#### Example
-
-```
-ng g @thisissoon/schematics:universal-express
-```
 
 ## Development
 
