@@ -60,6 +60,13 @@ Set to true if using a server side rendered app
 ##### `domain`: string
 Required if `universal` option is set to `false`
 
+### Commits schematic
+A schematic to setup conventional commits and changelog generation
+
+#### Example
+
+`ng g @thisissoon/schematics:commits`
+
 ## Development
 
 ### Testing
