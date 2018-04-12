@@ -6,6 +6,11 @@
       "factory": "./testing/index",
       "schema": "./testing/schema.json"
     },
+    "docker": {
+      "description": "A schematic to build docker image",
+      "factory": "./docker/index",
+      "schema": "./docker/schema.json"
+    },
     "universal-express": {
       "description": "A schematic to set up angular universal and an express server",
       "factory": "./universal-express/index"
