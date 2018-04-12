@@ -65,3 +65,4 @@ describe('testing', () => {
     expect(contents).toMatch(/Gitlab configuration for foo/);
   });
 });
+
