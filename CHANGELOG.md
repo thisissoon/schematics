@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.1"></a>
+# [1.0.0-alpha.1](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2018-04-12)
+
+
+### Features
+
+* **docker:** adding schematic for Dockerfile config ([7916a5a](https://github.com/thisissoon/schematics/commit/7916a5a))
+* **license:** added a schematic to generate a MIT license file ([9545e26](https://github.com/thisissoon/schematics/commit/9545e26))
+* **universal-express:** adding schematic to run universal schematic and create express server ([76c3829](https://github.com/thisissoon/schematics/commit/76c3829))
+
+
+
 <a name="1.0.0-alpha.0"></a>
 # 1.0.0-alpha.0 (2018-04-04)
 
