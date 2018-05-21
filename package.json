@@ -1,6 +1,6 @@
 {
   "name": "@thisissoon/schematics",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "private": false,
   "description": "A set of extensions for the Angular CLI",
   "scripts": {
