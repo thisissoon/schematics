@@ -7,6 +7,7 @@ import {
 } from '@angular-devkit/schematics';
 import { addNPMInstallTask } from '../utils/npm';
 import { commitReadMeText } from './data';
+import { getJsonFile } from '../utils/json';
 
 export default function(): Rule {
 
@@ -25,14 +26,8 @@ export default function(): Rule {
 function updatePackageJson(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const pkgJsonPath = '/package.json';
-    const buffer = tree.read(pkgJsonPath);
-    let pkgJson;
-
-    if (buffer === null) {
-      pkgJson = { scripts: {}, dependencies: {} };
-    } else {
-      pkgJson = JSON.parse(buffer.toString());
-    }
+    const defaultObj = { scripts: {}, dependencies: {} };
+    const pkgJson = getJsonFile(pkgJsonPath, tree, defaultObj);
 
     pkgJson.devDependencies['cz-conventional-changelog'] = '^2.1.0';
     pkgJson.devDependencies['standard-version'] = '^4.3.0';

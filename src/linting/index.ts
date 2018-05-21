@@ -13,6 +13,7 @@ import { strings } from '@angular-devkit/core';
 import * as https from 'https';
 import { Subject, Observable } from 'rxjs';
 import { addNPMInstallTask } from '../utils/npm';
+import { getJsonFile } from '../utils/json';
 
 export default function(options: any): Rule {
 
@@ -40,14 +41,12 @@ export default function(options: any): Rule {
 function updatePackageJson(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const pkgJsonPath = '/package.json';
-    const buffer = tree.read(pkgJsonPath);
-    let pkgJson;
+    const defaultObj = { scripts: {}, dependencies: {} };
+    const pkgJson = getJsonFile(pkgJsonPath, tree, defaultObj);
 
-    if (buffer === null) {
-      pkgJson = { scripts: {}, dependencies: {} };
-    } else {
-      pkgJson = JSON.parse(buffer.toString());
-    }
+    const angularCliConfigPath = '/angular.json';
+    let cliJson = getJsonFile(angularCliConfigPath, tree);
+    const appNames = Object.keys(cliJson.projects).map(key => key);
 
     pkgJson.devDependencies['husky'] = '^0.14.3';
     pkgJson.devDependencies['prettier'] = '^1.11.1';
@@ -59,11 +58,12 @@ function updatePackageJson(): Rule {
     pkgJson.devDependencies['stylelint-scss'] = '^3.0.0';
 
     pkgJson.scripts['lint:ts'] = 'ng lint';
+    pkgJson.scripts['lint:ts:fix'] = appNames.map(name => `ng lint ${name} --fix`).join(' && ');
     pkgJson.scripts['lint:scss'] = 'stylelint --syntax scss \"src/**/*.scss\"';
     pkgJson.scripts['lint'] = 'npm run format:check && npm run lint:ts && npm run lint:scss';
     pkgJson.scripts['format:check'] = 'prettier --config ./.prettierrc -l \"{src/{app,environments,assets}/**/*.{ts,json,css,scss},./*.{ts,js,json,css,scss}}\"';
     pkgJson.scripts['format:fix:staged'] = 'pretty-quick --staged';
-    pkgJson.scripts['format:fix:all'] = 'npm run format:check -- --write && npm run lint:scss -- --fix && npm run lint:ts -- --fix';
+    pkgJson.scripts['format:fix:all'] = 'npm run format:check -- --write && npm run lint:scss -- --fix && npm run lint:ts:fix';
     pkgJson.scripts['precommit'] = 'npm run format:fix:staged && npm run lint';
 
     tree.overwrite(pkgJsonPath, JSON.stringify(pkgJson, null, 2) + '\n');
@@ -73,14 +73,8 @@ function updatePackageJson(): Rule {
 function updateTslintJson(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const tslintPath = '/tslint.json';
-    const buffer = tree.read(tslintPath);
-    let tslintJson;
-
-    if (buffer === null) {
-      tslintJson = { rules: {} };
-    } else {
-      tslintJson = JSON.parse(buffer.toString());
-    }
+    const defaultObj = { rules: {} };
+    const tslintJson = getJsonFile(tslintPath, tree, defaultObj);
 
     delete tslintJson.rules['comment-format'];
     delete tslintJson.rules['curly'];

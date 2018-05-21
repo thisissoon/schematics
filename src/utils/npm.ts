@@ -1,15 +1,12 @@
 import { Tree, SchematicContext } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import { getJsonFile } from './json';
 
 export function getPackageName(tree: Tree): string {
-  const buffer = tree.read('/package.json');
-  let name: string;
-  if (buffer === null) {
-    name = 'app';
-  } else {
-    name = JSON.parse(buffer.toString()).name;
-  }
-  return name;
+  const pkgJsonPath = '/package.json';
+  const defaultObj = { name: 'app' };
+  const pkgJson = getJsonFile(pkgJsonPath, tree, defaultObj)
+  return pkgJson.name;
 }
 
 export function addNPMInstallTask(context: SchematicContext) {

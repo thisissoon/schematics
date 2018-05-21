@@ -15,6 +15,7 @@ import { strings } from '@angular-devkit/core';
 import * as data from './data';
 import { TestingSchema } from './schema.model';
 import { getPackageName, addNPMInstallTask } from '../utils/npm';
+import { getJsonFile } from '../utils/json';
 
 export default function(options: TestingSchema): Rule {
 
@@ -70,13 +71,9 @@ function filterConfig(options: TestingSchema): Rule {
 function updatePackageJson(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const pkgJsonPath = '/package.json';
-    const buffer = tree.read(pkgJsonPath);
-    let pkgJson;
-    if (buffer === null) {
-      pkgJson = { devDependencies: {}, scripts: {} };
-    } else {
-      pkgJson = JSON.parse(buffer.toString());
-    }
+    const defaultObj = { scripts: {}, dependencies: {} };
+    const pkgJson = getJsonFile(pkgJsonPath, tree, defaultObj);
+
     pkgJson.devDependencies['karma-spec-reporter'] = '0.0.32';
     pkgJson.devDependencies['coveralls'] = '^3.0.0';
     pkgJson.scripts['coverage'] = 'coveralls < coverage/lcov.info';

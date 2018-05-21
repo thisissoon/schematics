@@ -19,6 +19,7 @@ import * as ts from 'typescript';
 
 import { universalReadMeText } from './data';
 import { addNPMInstallTask } from '../utils/npm';
+import { getJsonFile } from '../utils/json';
 
 export default function(options: UniversalSchema): Rule {
 
@@ -48,14 +49,8 @@ export default function(options: UniversalSchema): Rule {
 function updatePackageJson(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const pkgJsonPath = '/package.json';
-    const buffer = tree.read(pkgJsonPath);
-    let pkgJson;
-
-    if (buffer === null) {
-      pkgJson = { scripts: {}, dependencies: {} };
-    } else {
-      pkgJson = JSON.parse(buffer.toString());
-    }
+    const defaultObj = { scripts: {}, dependencies: {} };
+    const pkgJson = getJsonFile(pkgJsonPath, tree, defaultObj);
 
     pkgJson.dependencies['@nguniversal/express-engine'] = '^5.0.0';
     pkgJson.dependencies['@nguniversal/module-map-ngfactory-loader'] = '^5.0.0';
