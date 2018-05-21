@@ -14,7 +14,7 @@ stages:
 # Setup project
 setup:
   stage: setup
-  image: circleci/node:8-browsers
+  image: circleci/node:8.11.2-browsers
   artifacts:
     name: "node_modules_${CI_BUILD_REF_NAME}"
     expire_in: 1d
@@ -30,15 +30,15 @@ setup:
 # Test Unit
 test_unit:
   stage: test
-  image: circleci/node:8-browsers
+  image: circleci/node:8.11.2-browsers
   script:
     - npm run lint
-    - npm run test -- --no-progress --single-run --code-coverage
+    - npm run test -- --no-progress --code-coverage
 
 # Test Integration
 test_integration:
   stage: test
-  image: circleci/node:8-browsers
+  image: circleci/node:8.11.2-browsers
   script:
     - npm run e2e -- --no-progress
 

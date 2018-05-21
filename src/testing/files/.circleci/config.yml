@@ -11,13 +11,13 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run: npm i --no-progress
+          key: ~/<%= name %>-{{ .Branch }}-{{ checksum "package.json" }}
+      - run: npm install
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: ~/<%= name %>-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
-            - node_modules
+            - "node_modules"
       - run: npm run lint
-      - run: npm run test -- --single-run --code-coverage --no-progress
-      - run: npm run e2e -- --no-progress
+      - run: xvfb-run -a npm run test -- --no-progress --code-coverage
+      - run: xvfb-run -a npm run e2e -- --no-progress
       - run: npm run coverage
