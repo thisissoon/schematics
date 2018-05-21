@@ -77,7 +77,7 @@ describe('linting', () => {
       expect(contents.scripts['lint']).toEqual('npm run format:check && npm run lint:ts && npm run lint:scss');
       expect(contents.scripts['format:check']).toEqual('prettier --config ./.prettierrc -l \"{src/{app,environments,assets}/**/*.{ts,json,css,scss},./*.{ts,js,json,css,scss}}\"');
       expect(contents.scripts['format:fix:staged']).toEqual('pretty-quick --staged');
-      expect(contents.scripts['format:fix:all']).toEqual('npm run format:check -- --write && npm run lint:scss -- --fix && npm run lint:ts -- --fix');
+      expect(contents.scripts['format:fix:all']).toEqual('npm run format:check -- --write && npm run lint:scss -- --fix && npm run lint:ts:fix');
       expect(contents.scripts['precommit']).toEqual('npm run format:fix:staged && npm run lint');
       done();
     });
