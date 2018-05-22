@@ -12,7 +12,7 @@ jobs:
       - checkout
       - restore_cache:
           key: ~/<%= name %>-{{ .Branch }}-{{ checksum "package.json" }}
-      - run: npm install
+      - run: npm i --no-progress
       - save_cache:
           key: ~/<%= name %>-{{ .Branch }}-{{ checksum "package.json" }}
           paths:

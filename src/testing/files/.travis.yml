@@ -21,7 +21,7 @@ cache:
     - ./node_modules
 
 install:
-  - npm install
+  - npm i --no-progress
 
 script:
   # Use Chromium instead of Chrome.
