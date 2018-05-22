@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.3"></a>
+# [1.0.0-alpha.3](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2018-05-22)
+
+
+### Bug Fixes
+
+* **testing:** more fixes for modifying testing configuration for ci ([7b51a94](https://github.com/thisissoon/schematics/commit/7b51a94))
+
+
+
 <a name="1.0.0-alpha.2"></a>
 # [1.0.0-alpha.2](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2018-05-21)
 
