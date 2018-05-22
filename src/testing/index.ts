@@ -84,7 +84,7 @@ function updatePackageJson(): Rule {
 
 function updateKarmaConfig(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-    const karmaPath = '/karma.conf.js';
+    const karmaPath = '/src/karma.conf.js';
     const buffer = tree.read(karmaPath);
     if (buffer === null) {
       return;
@@ -108,7 +108,7 @@ function updateKarmaConfig(): Rule {
 
 function updateProtractorConfig(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-    const protractorPath = '/protractor.conf.js';
+    const protractorPath = '/e2e/protractor.conf.js';
     const buffer = tree.read(protractorPath);
     if (buffer === null) {
       return;

@@ -33,7 +33,7 @@ test_unit:
   image: circleci/node:8.11.2-browsers
   script:
     - npm run lint
-    - npm run test -- --no-progress --code-coverage
+    - npm run test -- --no-progress --code-coverage --watch false
 
 # Test Integration
 test_integration:
