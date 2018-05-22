@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.4"></a>
+# [1.0.0-alpha.4](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2018-05-22)
+
+
+### Bug Fixes
+
+* **testing:** don't display progress during npm install in ci ([7010808](https://github.com/thisissoon/schematics/commit/7010808))
+
+
+
 <a name="1.0.0-alpha.3"></a>
 # [1.0.0-alpha.3](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2018-05-22)
 
