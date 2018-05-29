@@ -2,8 +2,8 @@ export const karmaPluginsFind = `plugins: [`;
 export const karmaPluginsReplace = `plugins: [
       require('karma-spec-reporter'),`;
 
-export const karmaCoverageFind = `reports: [ 'html', 'lcovonly' ]`;
-export const karmaCoverageReplace = `reports: [ 'html', 'lcovonly', 'text-summary' ]`;
+export const karmaCoverageFind = `reports: ['html', 'lcovonly'],`;
+export const karmaCoverageReplace = `reports: ['html', 'lcovonly', 'text-summary']`;
 
 export const karmaReportersFind = `reporters: ['progress', 'kjhtml'],`;
 export const karmaReportersReplace = `reporters: config.angularCli && config.angularCli.codeCoverage ?
