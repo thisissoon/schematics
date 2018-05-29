@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.6"></a>
+# [1.0.0-alpha.6](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2018-05-29)
+
+
+### Bug Fixes
+
+* **testing:** update coverage reports config ([1f43a6e](https://github.com/thisissoon/schematics/commit/1f43a6e))
+
+
+
 <a name="1.0.0-alpha.5"></a>
 # [1.0.0-alpha.5](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2018-05-23)
 
