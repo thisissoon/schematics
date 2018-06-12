@@ -67,6 +67,7 @@ function updatePackageJson(): Rule {
     pkgJson.scripts['precommit'] = 'npm run format:fix:staged && npm run lint';
 
     tree.overwrite(pkgJsonPath, JSON.stringify(pkgJson, null, 2) + '\n');
+    tree.overwrite(angularCliConfigPath, JSON.stringify(cliJson, null, 2) + '\n');
   }
 }
 

@@ -16,7 +16,7 @@ setup:
   stage: setup
   image: circleci/node:8.11.2-browsers
   artifacts:
-    name: "node_modules_${CI_BUILD_REF_NAME}"
+    name: "node_modules_${CI_COMMIT_REF_SLUG}"
     expire_in: 1d
     paths:
       - node_modules
@@ -33,13 +33,13 @@ test_unit:
   image: circleci/node:8.11.2-browsers
   script:
     - npm run lint
-    - npm run test -- --no-progress --code-coverage --watch false
+    - npm run test -- --code-coverage --watch false --browsers ChromeNoSandbox
 
 # Test Integration
 test_integration:
   stage: test
   image: circleci/node:8.11.2-browsers
   script:
-    - npm run e2e -- --no-progress
+    - npm run e2e
 
 

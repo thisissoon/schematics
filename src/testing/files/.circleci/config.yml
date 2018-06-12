@@ -18,6 +18,6 @@ jobs:
           paths:
             - "node_modules"
       - run: npm run lint
-      - run: xvfb-run -a npm run test -- --no-progress --code-coverage --watch false
-      - run: xvfb-run -a npm run e2e -- --no-progress
+      - run: xvfb-run -a npm run test -- --code-coverage --watch false --browsers ChromeNoSandbox
+      - run: xvfb-run -a npm run e2e
       - run: npm run coverage

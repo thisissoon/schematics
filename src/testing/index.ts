@@ -37,7 +37,8 @@ export default function(options: TestingSchema): Rule {
         mergeWith(templateSource),
         updateKarmaConfig(),
         updateProtractorConfig(),
-        updatePackageJson()
+        updatePackageJson(),
+        updateAngularJson()
       ])),
     ])(tree, context);
   };
@@ -79,6 +80,29 @@ function updatePackageJson(): Rule {
     pkgJson.scripts['coverage'] = 'coveralls < coverage/lcov.info';
 
     tree.overwrite(pkgJsonPath, JSON.stringify(pkgJson, null, 2));
+  }
+}
+
+function updateAngularJson(): Rule {
+  return (tree: Tree, _context: SchematicContext) => {
+    const angularCliConfigPath = '/angular.json';
+    let cliJson = getJsonFile(angularCliConfigPath, tree);
+    const appNames = Object.keys(cliJson.projects).map(key => key);
+
+    appNames.forEach(name => {
+      if (cliJson.projects[name].architect.test) {
+        cliJson.projects[name].architect.test.options.progress = false;
+        cliJson.projects[name].architect.build.configurations['no-progress'] = { progress: false };
+        cliJson.projects[name].architect.serve.configurations['no-progress'] = { browserTarget: `${name}:build:no-progress` };
+      }
+      if (cliJson.projects[name].architect.e2e) {
+        const nonE2Ename = name.replace('-e2e', '');
+        cliJson.projects[name].architect.e2e.options.devServerTarget = `${nonE2Ename}:serve:no-progress`;
+      }
+    });
+
+    tree.overwrite(angularCliConfigPath, JSON.stringify(cliJson, null, 2) + '\n');
+
   }
 }
 
