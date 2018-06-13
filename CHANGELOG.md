@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.8"></a>
+# [1.0.0-alpha.8](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2018-06-13)
+
+
+### Features
+
+* **testing:** replace karma-spec-reporter with karma-mocha-reporter ([a27acbb](https://github.com/thisissoon/schematics/commit/a27acbb))
+
+
+
 <a name="1.0.0-alpha.7"></a>
 # [1.0.0-alpha.7](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2018-06-12)
 
