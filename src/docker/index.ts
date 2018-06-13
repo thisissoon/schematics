@@ -22,7 +22,7 @@ export default function(options: DockerSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     options.name = getPackageName(tree);
     const cliJson = getJsonFile('/angular.json', tree);
-    const defaultProject = cliJson.defaultProject;
+    const defaultProject = Object.keys(cliJson.projects)[0];
     options.distFolder = cliJson.projects[defaultProject].architect.build.options.outputPath;
 
     if (tree.exists('/Dockerfile')) {

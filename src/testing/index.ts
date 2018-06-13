@@ -88,7 +88,7 @@ function updateAngularJson(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const angularCliConfigPath = '/angular.json';
     let cliJson = getJsonFile(angularCliConfigPath, tree);
-    const appNames = Object.keys(cliJson.projects).map(key => key);
+    const appNames = Object.keys(cliJson.projects);
 
     appNames.forEach(name => {
       if (cliJson.projects[name].architect.test) {

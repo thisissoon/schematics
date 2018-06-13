@@ -22,7 +22,7 @@ describe('docker', () => {
   const workspaceOptions: WorkspaceOptions = {
     name: 'workspace',
     newProjectRoot: 'projects',
-    version: '1.7.0',
+    version: '6.0.0',
   };
 
   const appOptions: ApplicationOptions = {
