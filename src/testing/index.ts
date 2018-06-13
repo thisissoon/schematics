@@ -77,6 +77,7 @@ function updatePackageJson(): Rule {
 
     pkgJson.devDependencies['karma-spec-reporter'] = '0.0.32';
     pkgJson.devDependencies['coveralls'] = '^3.0.0';
+    pkgJson.scripts['test:ci'] = 'npm test -- --configuration ci';
     pkgJson.scripts['coverage'] = 'coveralls < coverage/lcov.info';
 
     tree.overwrite(pkgJsonPath, JSON.stringify(pkgJson, null, 2));
@@ -91,7 +92,14 @@ function updateAngularJson(): Rule {
 
     appNames.forEach(name => {
       if (cliJson.projects[name].architect.test) {
-        cliJson.projects[name].architect.test.options.progress = false;
+        cliJson.projects[name].architect.test['configurations'] = {
+          ci: {
+            codeCoverage: true,
+            progress: false,
+            browsers: 'ChromeNoSandbox',
+            watch: false
+          }
+        }
         cliJson.projects[name].architect.build.configurations['no-progress'] = { progress: false };
         cliJson.projects[name].architect.serve.configurations['no-progress'] = { browserTarget: `${name}:build:no-progress` };
       }

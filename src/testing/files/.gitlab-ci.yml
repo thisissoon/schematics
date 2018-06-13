@@ -7,6 +7,12 @@ stages:
   - setup
   - test
 
+cache:
+  key: ${CI_COMMIT_REF_NAME}
+  untracked: true
+  paths:
+    - node_modules
+
 #
 # Setup Stage
 #
@@ -15,11 +21,6 @@ stages:
 setup:
   stage: setup
   image: circleci/node:8.11.2-browsers
-  artifacts:
-    name: "node_modules_${CI_COMMIT_REF_SLUG}"
-    expire_in: 1d
-    paths:
-      - node_modules
   script:
     - npm i --no-progress
 
@@ -31,14 +32,18 @@ setup:
 test_unit:
   stage: test
   image: circleci/node:8.11.2-browsers
+  before_script:
+    - npm i --no-progress
   script:
     - npm run lint
-    - npm run test -- --code-coverage --watch false --browsers ChromeNoSandbox
+    - npm run test:ci
 
 # Test Integration
 test_integration:
   stage: test
   image: circleci/node:8.11.2-browsers
+  before_script:
+    - npm i --no-progress
   script:
     - npm run e2e
 
