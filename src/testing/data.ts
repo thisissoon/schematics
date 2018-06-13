@@ -1,14 +1,14 @@
 export const karmaPluginsFind = `plugins: [`;
 export const karmaPluginsReplace = `plugins: [
-      require('karma-spec-reporter'),`;
+      require('karma-mocha-reporter'),`;
 
 export const karmaCoverageFind = `reports: ['html', 'lcovonly'],`;
 export const karmaCoverageReplace = `reports: ['html', 'lcovonly', 'text-summary'],`;
 
 export const karmaReportersFind = `reporters: ['progress', 'kjhtml'],`;
 export const karmaReportersReplace = `reporters: config.angularCli && config.angularCli.codeCoverage ?
-        ['spec', 'kjhtml', 'coverage-istanbul'] :
-        ['spec', 'kjhtml'],`;
+        ['mocha', 'kjhtml', 'coverage-istanbul'] :
+        ['mocha', 'kjhtml'],`;
 
 export const karmaCustomLaunchFind = `browsers: ['Chrome'],`;
 export const karmaCustomLaunchReplace = `browsers: ['Chrome'],

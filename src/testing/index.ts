@@ -75,7 +75,7 @@ function updatePackageJson(): Rule {
     const defaultObj = { scripts: {}, dependencies: {} };
     const pkgJson = getJsonFile(pkgJsonPath, tree, defaultObj);
 
-    pkgJson.devDependencies['karma-spec-reporter'] = '0.0.32';
+    pkgJson.devDependencies['karma-mocha-reporter'] = '^2.2.5';
     pkgJson.devDependencies['coveralls'] = '^3.0.0';
     pkgJson.scripts['test:ci'] = 'npm test -- --configuration ci';
     pkgJson.scripts['coverage'] = 'coveralls < coverage/lcov.info';
