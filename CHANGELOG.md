@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.9"></a>
+# [1.0.0-alpha.9](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2018-06-13)
+
+
+### Features
+
+* **docker:** add support for angular 6 for non universal apps ([b41103a](https://github.com/thisissoon/schematics/commit/b41103a))
+
+
+
 <a name="1.0.0-alpha.8"></a>
 # [1.0.0-alpha.8](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2018-06-13)
 
