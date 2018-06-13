@@ -16,10 +16,14 @@ import { strings } from '@angular-devkit/core';
 import { DockerSchema } from './schema.model';
 import { getPackageName } from '../utils/npm';
 import { getDockerReadMeText } from './data';
+import { getJsonFile } from '../utils/json';
 
 export default function(options: DockerSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     options.name = getPackageName(tree);
+    const cliJson = getJsonFile('/angular.json', tree);
+    const defaultProject = cliJson.defaultProject;
+    options.distFolder = cliJson.projects[defaultProject].architect.build.options.outputPath;
 
     if (tree.exists('/Dockerfile')) {
       throw new SchematicsException('Dockfile already exists');
