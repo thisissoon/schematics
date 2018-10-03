@@ -3,4 +3,5 @@ export interface DockerSchema {
   domain?: string;
   name: string;
   distFolder?: string;
+  packageManager?: 'npm' | 'yarn';
 }
