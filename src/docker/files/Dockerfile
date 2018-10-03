@@ -21,7 +21,7 @@ COPY ./dist/ /usr/src/app/dist/
 EXPOSE 4000
 CMD forever -o ${OUTFILE:-OUTFILE.log} -e ${ERRFILE:-ERRFILE.log} -l ${LOGFILE:-LOGFILE.log} ./dist/server.js<% } else { %>
 # Pull alpine base image
-FROM alpine:3.7
+FROM alpine:3.8
 
 # Install Nginx
 RUN apk add --update nginx && \

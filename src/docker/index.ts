@@ -7,6 +7,7 @@ import {
   mergeWith,
   apply,
   url,
+  noop,
   template,
   SchematicsException,
   filter,
@@ -33,10 +34,8 @@ export default function(options: DockerSchema): Rule {
       throw new SchematicsException('Must specify a domain name for nginx config');
     }
 
-    const nginxFilter = filter((path) => options.universal ? !path.endsWith('nginx.conf') : true);
-
     const templateSource = apply(url('./files'), [
-      nginxFilter,
+      options.universal ? filter((path) => !path.endsWith('nginx.conf')): noop(),
       template({
         ...strings,
         ...options,
