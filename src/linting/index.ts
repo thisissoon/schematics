@@ -44,30 +44,35 @@ function updatePackageJson(): Rule {
     const defaultObj = { scripts: {}, dependencies: {} };
     const pkgJson = getJsonFile(pkgJsonPath, tree, defaultObj);
 
-    const angularCliConfigPath = '/angular.json';
-    let cliJson = getJsonFile(angularCliConfigPath, tree);
-    const appNames = Object.keys(cliJson.projects).map(key => key);
-
-    pkgJson.devDependencies['husky'] = '^0.14.3';
-    pkgJson.devDependencies['prettier'] = '^1.11.1';
-    pkgJson.devDependencies['pretty-quick'] = '^1.4.1';
-    pkgJson.devDependencies['stylelint'] = '^9.2.0';
-    pkgJson.devDependencies['stylelint-order'] = '^0.8.1';
+    pkgJson.devDependencies['husky'] = '^1.1.0';
+    pkgJson.devDependencies['lint-staged'] = '^7.3.0';
+    pkgJson.devDependencies['prettier'] = '^1.14.3';
+    pkgJson.devDependencies['stylelint'] = '^9.6.0';
+    pkgJson.devDependencies['stylelint-config-prettier'] = '^4.0.0';
     pkgJson.devDependencies['stylelint-config-recommended-scss'] = '^3.2.0';
     pkgJson.devDependencies['stylelint-config-standard'] = '^18.2.0';
-    pkgJson.devDependencies['stylelint-scss'] = '^3.0.0';
+    pkgJson.devDependencies['stylelint-order'] = '^1.0.0';
+    pkgJson.devDependencies['stylelint-scss'] = '^3.3.1';
+    pkgJson.devDependencies['tslint-config-prettier'] = '^1.15.0';
 
-    pkgJson.scripts['lint:ts'] = 'ng lint';
-    pkgJson.scripts['lint:ts:fix'] = appNames.map(name => `ng lint ${name} --fix`).join(' && ');
-    pkgJson.scripts['lint:scss'] = 'stylelint --syntax scss \"src/**/*.scss\"';
-    pkgJson.scripts['lint'] = 'npm run format:check && npm run lint:ts && npm run lint:scss';
-    pkgJson.scripts['format:check'] = 'prettier --config ./.prettierrc -l \"{src/{app,environments,assets}/**/*.{ts,json,css,scss},./*.{ts,js,json,css,scss}}\"';
-    pkgJson.scripts['format:fix:staged'] = 'pretty-quick --staged';
-    pkgJson.scripts['format:fix:all'] = 'npm run format:check -- --write && npm run lint:scss -- --fix && npm run lint:ts:fix';
-    pkgJson.scripts['precommit'] = 'npm run format:fix:staged && npm run lint';
+    pkgJson.scripts['lint'] = 'npm run prettier && npm run nglint && npm run stylelint';
+    pkgJson.scripts['lint:fix'] = 'npm run prettier -- --write && npm run stylelint -- --fix && npm run nglint -- --fix';
+    pkgJson.scripts['nglint'] = 'ng lint';
+    pkgJson.scripts['stylelint'] = 'stylelint --syntax scss "src/**/*.{css,scss}"';
+    pkgJson.scripts['prettier'] = 'prettier --config .prettierrc "src/**/*.{ts,js,json,css,scss}"';
+
+    pkgJson['husky'] = {
+      hooks: {
+        'pre-commit': 'lint-staged'
+      }
+    };
+    pkgJson['lint-staged'] = {
+      'src/**/*.{ts,js,json,css,scss}': ['prettier --config .prettierrc --write', 'git add'],
+      'src/**/*.ts': ['tslint --fix', 'git add'],
+      'src/**/*.{css,scss}': ['stylelint --syntax scss --fix', 'git add']
+    };
 
     tree.overwrite(pkgJsonPath, JSON.stringify(pkgJson, null, 2) + '\n');
-    tree.overwrite(angularCliConfigPath, JSON.stringify(cliJson, null, 2) + '\n');
   }
 }
 
