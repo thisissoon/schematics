@@ -63,22 +63,22 @@ describe('linting', () => {
       expect(tree.exists(filePath)).toBeTruthy();
       const contents = JSON.parse(tree.readContent(filePath));
 
-      expect(contents.devDependencies['husky']).toEqual('^0.14.3');
-      expect(contents.devDependencies['prettier']).toEqual('^1.11.1');
-      expect(contents.devDependencies['pretty-quick']).toEqual('^1.4.1');
-      expect(contents.devDependencies['stylelint']).toEqual('^9.2.0');
-      expect(contents.devDependencies['stylelint-order']).toEqual('^0.8.1');
+      expect(contents.devDependencies['husky']).toEqual('^1.1.0');
+      expect(contents.devDependencies['lint-staged']).toEqual('^7.3.0');
+      expect(contents.devDependencies['prettier']).toEqual('^1.14.3');
+      expect(contents.devDependencies['stylelint']).toEqual('^9.6.0');
+      expect(contents.devDependencies['stylelint-config-prettier']).toEqual('^4.0.0');
       expect(contents.devDependencies['stylelint-config-recommended-scss']).toEqual('^3.2.0');
       expect(contents.devDependencies['stylelint-config-standard']).toEqual('^18.2.0');
-      expect(contents.devDependencies['stylelint-scss']).toEqual('^3.0.0');
+      expect(contents.devDependencies['stylelint-order']).toEqual('^1.0.0');
+      expect(contents.devDependencies['stylelint-scss']).toEqual('^3.3.1');
+      expect(contents.devDependencies['tslint-config-prettier']).toEqual('^1.15.0');
 
-      expect(contents.scripts['lint:ts']).toEqual('ng lint');
-      expect(contents.scripts['lint:scss']).toEqual('stylelint --syntax scss \"src/**/*.scss\"');
-      expect(contents.scripts['lint']).toEqual('npm run format:check && npm run lint:ts && npm run lint:scss');
-      expect(contents.scripts['format:check']).toEqual('prettier --config ./.prettierrc -l \"{src/{app,environments,assets}/**/*.{ts,json,css,scss},./*.{ts,js,json,css,scss}}\"');
-      expect(contents.scripts['format:fix:staged']).toEqual('pretty-quick --staged');
-      expect(contents.scripts['format:fix:all']).toEqual('npm run format:check -- --write && npm run lint:scss -- --fix && npm run lint:ts:fix');
-      expect(contents.scripts['precommit']).toEqual('npm run format:fix:staged && npm run lint');
+      expect(contents.scripts['lint']).toEqual('npm run prettier && npm run nglint && npm run stylelint');
+      expect(contents.scripts['lint:fix']).toEqual('npm run prettier -- --write && npm run stylelint -- --fix && npm run nglint -- --fix');
+      expect(contents.scripts['nglint']).toEqual('ng lint');
+      expect(contents.scripts['stylelint']).toEqual('stylelint --syntax scss "src/**/*.{css,scss}"');
+      expect(contents.scripts['prettier']).toEqual('prettier --config .prettierrc "src/**/*.{ts,js,json,css,scss}"');
       done();
     });
   });

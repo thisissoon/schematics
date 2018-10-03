@@ -3,12 +3,6 @@
   "version": "1.0.0-alpha.10",
   "private": false,
   "description": "A set of extensions for the Angular CLI",
-  "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "test": "npm run build && jasmine **/*_spec.js",
-    "release": "standard-version",
-    "postrelease": "npm run build"
-  },
   "keywords": [
     "schematics",
     "angular",
@@ -38,6 +32,13 @@
   },
   "license": "MIT",
   "schematics": "./src/collection.json",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "pretest": "npm run build",
+    "test": "jasmine **/*.spec.js",
+    "release": "standard-version",
+    "postrelease": "npm run build"
+  },
   "dependencies": {
     "@angular-devkit/core": "^0.8.4",
     "@angular-devkit/schematics": "^0.8.4",
@@ -45,7 +46,7 @@
     "@types/jasmine": "^2.6.0",
     "@types/node": "^8.0.31",
     "jasmine": "^2.8.0",
-    "typescript": "^2.6.2"
+    "typescript": "^2.8.2"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^2.1.0",

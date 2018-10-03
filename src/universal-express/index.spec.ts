@@ -65,13 +65,13 @@ describe('universal express', () => {
     const filePath = '/package.json';
     expect(appTree.exists(filePath)).toBeTruthy();
     const contents = JSON.parse(appTree.readContent(filePath));
-    expect(contents.dependencies['@nguniversal/express-engine']).toEqual('^5.0.0');
-    expect(contents.dependencies['@nguniversal/module-map-ngfactory-loader']).toEqual('^5.0.0');
+    expect(contents.dependencies['@nguniversal/express-engine']).toEqual('^6.1.0');
+    expect(contents.dependencies['@nguniversal/module-map-ngfactory-loader']).toEqual('^6.1.0');
     expect(contents.dependencies['express']).toEqual('^4.16.3');
-    expect(contents.dependencies['ts-loader']).toEqual('^3.5.0');
+    expect(contents.dependencies['ts-loader']).toEqual('^5.2.1');
     expect(contents.scripts['build:ssr']).toEqual('npm run build:client-and-server-bundles && npm run webpack:server');
     expect(contents.scripts['serve:ssr']).toEqual('node dist/server.js');
-    expect(contents.scripts['build:client-and-server-bundles']).toEqual('ng build --prod && ng build --prod --app ssr --output-hashing false');
+    expect(contents.scripts['build:client-and-server-bundles']).toEqual('ng build --prod && ng run bar:server');
     expect(contents.scripts['webpack:server']).toEqual('webpack --config webpack.server.js --progress --colors');
   });
 });
