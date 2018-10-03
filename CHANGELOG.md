@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.11"></a>
+# [1.0.0-alpha.11](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2018-10-03)
+
+
+### Bug Fixes
+
+* **docker:** resolve issue with docker schematic failing ([fc2de8a](https://github.com/thisissoon/schematics/commit/fc2de8a))
+* **testing:** update dependencies to resolve issue with schematic failing ([714ab28](https://github.com/thisissoon/schematics/commit/714ab28))
+
+
+### Features
+
+* **docker:** added yarn support ([4d02e42](https://github.com/thisissoon/schematics/commit/4d02e42))
+* **linting:** use lint-staged and lint/fix only staged files ([65b93ad](https://github.com/thisissoon/schematics/commit/65b93ad))
+* **universal-express:** add support for angular v6 and above ([f870130](https://github.com/thisissoon/schematics/commit/f870130))
+
+
+
 <a name="1.0.0-alpha.10"></a>
 # [1.0.0-alpha.10](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2018-06-13)
 
