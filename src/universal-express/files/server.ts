@@ -1,13 +1,11 @@
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 
-import { renderModuleFactory } from '@angular/platform-server';
 import { enableProdMode } from '@angular/core';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 
 import * as express from 'express';
 import { join } from 'path';
-import { readFileSync } from 'fs';
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -22,7 +20,7 @@ const distFolder = join(process.cwd(), 'dist');
 const {
   AppServerModuleNgFactory,
   LAZY_MODULE_MAP
-} = require('./dist/server/main.bundle');
+} = require('./dist/<%= clientProject %>-server/main');
 
 const {
   provideModuleMap
@@ -37,14 +35,14 @@ app.engine(
 );
 
 app.set('view engine', 'html');
-app.set('views', join(distFolder, 'browser'));
+app.set('views', join(distFolder, '<%= clientProject %>'));
 
-// Server static files from /browser
-app.get('*.*', express.static(join(distFolder, 'browser')));
+// Server static files from /<%= clientProject %>
+app.get('*.*', express.static(join(distFolder, '<%= clientProject %>')));
 
 // All regular routes use the Universal engine
 app.get('*', (req, res) => {
-  res.render(join(distFolder, 'browser', 'index.html'), { req });
+  res.render(join(distFolder, '<%= clientProject %>', 'index.html'), { req });
 });
 
 // Start up the Node server

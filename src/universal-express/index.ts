@@ -24,6 +24,10 @@ import { getJsonFile } from '../utils/json';
 export default function(options: UniversalSchema): Rule {
 
   return (tree: Tree, context: SchematicContext) => {
+    const angularCliConfigPath = '/angular.json';
+    const cliJson = getJsonFile(angularCliConfigPath, tree);
+    options.clientProject = Object.keys(cliJson.projects)[0];
+
     const templateSource = apply(url('./files'), [
       template({
         ...strings,
@@ -38,49 +42,31 @@ export default function(options: UniversalSchema): Rule {
         externalSchematic('@schematics/angular', 'universal', options),
         addModuleToServerModule(),
         mergeWith(templateSource),
-        updateCliConfig(),
-        updatePackageJson(),
+        updatePackageJson(options),
         updateReadme()
       ])),
     ])(tree, context);
   };
 }
 
-function updatePackageJson(): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
+function updatePackageJson(options: UniversalSchema): Rule {
+  return (tree: Tree) => {
     const pkgJsonPath = '/package.json';
     const defaultObj = { scripts: {}, dependencies: {} };
     const pkgJson = getJsonFile(pkgJsonPath, tree, defaultObj);
 
-    pkgJson.dependencies['@nguniversal/express-engine'] = '^5.0.0';
-    pkgJson.dependencies['@nguniversal/module-map-ngfactory-loader'] = '^5.0.0';
+    pkgJson.dependencies['@nguniversal/express-engine'] = '^6.1.0';
+    pkgJson.dependencies['@nguniversal/module-map-ngfactory-loader'] = '^6.1.0';
     pkgJson.dependencies['express'] = '^4.16.3';
-    pkgJson.dependencies['ts-loader'] = '^3.5.0';
+    pkgJson.dependencies['ts-loader'] = '^5.2.1';
+    pkgJson.dependencies['webpack-cli'] = '^3.1.2';
 
     pkgJson.scripts['build:ssr'] = 'npm run build:client-and-server-bundles && npm run webpack:server';
     pkgJson.scripts['serve:ssr'] = 'node dist/server.js';
-    pkgJson.scripts['build:client-and-server-bundles'] = 'ng build --prod && ng build --prod --app ssr --output-hashing false';
+    pkgJson.scripts['build:client-and-server-bundles'] = `ng build --prod && ng run ${options.clientProject}:server`;
     pkgJson.scripts['webpack:server'] = 'webpack --config webpack.server.js --progress --colors';
 
     tree.overwrite(pkgJsonPath, JSON.stringify(pkgJson, null, 2));
-  }
-}
-
-function updateCliConfig(): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    const configPath = '/.angular-cli.json';
-    const buffer = tree.read(configPath);
-    if (buffer === null) {
-      return;
-    }
-
-    let config = JSON.parse(buffer.toString());
-
-    config.apps[0].outDir = 'dist/browser';
-    config.apps[1].outDir = 'dist/server';
-    config.apps[1].name = 'ssr';
-
-    tree.overwrite(configPath, JSON.stringify(config, null, 2));
   }
 }
 
@@ -97,7 +83,7 @@ function addModuleToServerModule(): Rule {
 
     const importModulePath = '@nguniversal/module-map-ngfactory-loader';
     const changes = addImportToModule(
-      source,
+      source as any,
       modulePath,
       `ModuleMapLoaderModule`,
       importModulePath
