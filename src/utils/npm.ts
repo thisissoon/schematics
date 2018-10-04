@@ -12,3 +12,10 @@ export function getPackageName(tree: Tree): string {
 export function addNPMInstallTask(context: SchematicContext) {
   context.addTask(new NodePackageInstallTask());
 }
+
+export function getPackageManager(tree: Tree): 'npm' | 'yarn' {
+  if (tree.exists('./yarn.lock')) {
+    return 'yarn';
+  }
+  return 'npm';
+}

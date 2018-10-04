@@ -14,13 +14,14 @@ import { strings } from '@angular-devkit/core';
 
 import * as data from './data';
 import { TestingSchema } from './schema.model';
-import { getPackageName, addNPMInstallTask } from '../utils/npm';
+import { getPackageName, addNPMInstallTask, getPackageManager } from '../utils/npm';
 import { getJsonFile } from '../utils/json';
 
 export default function(options: TestingSchema): Rule {
 
   return (tree: Tree, context: SchematicContext) => {
     options.name = getPackageName(tree);
+    options.packageManager = getPackageManager(tree);
 
     const templateSource = apply(url('./files'), [
       filterConfig(options),

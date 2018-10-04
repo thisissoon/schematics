@@ -15,7 +15,7 @@ import {
 import { strings } from '@angular-devkit/core';
 
 import { DockerSchema } from './schema.model';
-import { getPackageName } from '../utils/npm';
+import { getPackageName, getPackageManager } from '../utils/npm';
 import { getDockerReadMeText } from './data';
 import { getJsonFile } from '../utils/json';
 
@@ -26,11 +26,8 @@ export default function(options: DockerSchema): Rule {
     const defaultProject = Object.keys(cliJson.projects)[0];
     options.distFolder = cliJson.projects[defaultProject].architect.build.options.outputPath;
 
-    options.packageManager = 'npm';
+    options.packageManager = getPackageManager(tree);
 
-    if (tree.exists('./yarn.lock')) {
-      options.packageManager = 'yarn';
-    }
 
     if (tree.exists('/Dockerfile')) {
       throw new SchematicsException('Dockfile already exists');

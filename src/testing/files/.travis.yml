@@ -9,6 +9,11 @@ language: node_js
 node_js:
   - "8"
 
+cache:
+  <% if (packageManager === 'yarn') { %>yarn: true<% } %>
+  directories:
+    - node_modules
+
 addons:
   apt:
     sources:
@@ -16,17 +21,13 @@ addons:
     packages:
       - google-chrome-stable
 
-cache:
-  directories:
-    - ./node_modules
-
 install:
-  - npm i --no-progress
+  - <% if (packageManager === 'npm') { %>npm i --no-progress<% } else { %>yarn --silent<% } %>
 
 script:
   # Use Chromium instead of Chrome.
   - export CHROME_BIN=chromium-browser
-  - npm run lint
-  - xvfb-run -a npm run test:ci
-  - xvfb-run -a npm run e2e
-  - npm run coverage
+  - <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> lint
+  - <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> test <% if (packageManager === 'npm') { %> -- <% } %>--configuration ci
+  - <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> e2e
+  - <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> coverage
