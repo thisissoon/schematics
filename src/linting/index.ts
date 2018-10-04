@@ -55,11 +55,11 @@ function updatePackageJson(): Rule {
     pkgJson.devDependencies['stylelint-scss'] = '^3.3.1';
     pkgJson.devDependencies['tslint-config-prettier'] = '^1.15.0';
 
-    pkgJson.scripts['lint'] = 'npm run prettier && npm run nglint && npm run stylelint';
-    pkgJson.scripts['lint:fix'] = 'npm run prettier -- --write && npm run stylelint -- --fix && npm run nglint -- --fix';
+    pkgJson.scripts['lint'] = 'npm run stylelint && npm run nglint && npm run prettier';
+    pkgJson.scripts['lint:fix'] = 'npm run stylelint -- --fix && npm run nglint -- --fix && npm run prettier -- --write';
     pkgJson.scripts['nglint'] = 'ng lint';
     pkgJson.scripts['stylelint'] = 'stylelint --syntax scss "src/**/*.{css,scss}"';
-    pkgJson.scripts['prettier'] = 'prettier --config .prettierrc "src/**/*.{ts,js,json,css,scss}"';
+    pkgJson.scripts['prettier'] = 'prettier --config .prettierrc -l "src/**/*.{ts,js,json,css,scss}"';
 
     pkgJson['husky'] = {
       hooks: {
@@ -67,9 +67,9 @@ function updatePackageJson(): Rule {
       }
     };
     pkgJson['lint-staged'] = {
-      'src/**/*.{ts,js,json,css,scss}': ['prettier --config .prettierrc --write', 'git add'],
       'src/**/*.ts': ['tslint --fix', 'git add'],
-      'src/**/*.{css,scss}': ['stylelint --syntax scss --fix', 'git add']
+      'src/**/*.{css,scss}': ['stylelint --syntax scss --fix', 'git add'],
+      'src/**/*.{ts,js,json,css,scss}': ['prettier --config .prettierrc --write', 'git add']
     };
 
     tree.overwrite(pkgJsonPath, JSON.stringify(pkgJson, null, 2) + '\n');
@@ -79,7 +79,7 @@ function updatePackageJson(): Rule {
 function updateTslintJson(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const tslintPath = '/tslint.json';
-    const defaultObj = { rules: {} };
+    const defaultObj = { rules: {}, extends: [] };
     const tslintJson = getJsonFile(tslintPath, tree, defaultObj);
 
     delete tslintJson.rules['comment-format'];
@@ -94,6 +94,8 @@ function updateTslintJson(): Rule {
     delete tslintJson.rules['semicolon'];
     delete tslintJson.rules['typedef-whitespace'];
     delete tslintJson.rules['angular-whitespace'];
+
+    tslintJson.extends = ['tslint-config-prettier'];
 
     tree.overwrite(tslintPath, JSON.stringify(tslintJson, null, 2) + '\n');
   }
