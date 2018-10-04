@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.13"></a>
+# [1.0.0-alpha.13](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2018-10-04)
+
+
+### Bug Fixes
+
+* **universal-express:** server.ts file not being included in npm package ([97e396a](https://github.com/thisissoon/schematics/commit/97e396a))
+
+
+
 <a name="1.0.0-alpha.12"></a>
 # [1.0.0-alpha.12](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2018-10-04)
 
