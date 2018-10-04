@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.14"></a>
+# [1.0.0-alpha.14](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.13...v1.0.0-alpha.14) (2018-10-04)
+
+
+### Bug Fixes
+
+* **linting:** add prettier options to tslint and stylelint ([d8cc9ed](https://github.com/thisissoon/schematics/commit/d8cc9ed))
+
+
+### Features
+
+* **testing:** use ChromeHeadless for unit and e2e tests ([8f4a02e](https://github.com/thisissoon/schematics/commit/8f4a02e))
+* **testing:** use ChromeHeadless for unit and e2e tests and add yarn support ([8d97a9a](https://github.com/thisissoon/schematics/commit/8d97a9a))
+
+
+
 <a name="1.0.0-alpha.13"></a>
 # [1.0.0-alpha.13](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2018-10-04)
 
