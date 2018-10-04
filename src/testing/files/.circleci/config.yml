@@ -13,7 +13,7 @@ jobs:
       - checkout
       - restore_cache:
           key: ~/<%= name %>-{{ .Branch }}-{{ checksum "package.json" }}
-      - run: - <% if (packageManager === 'npm') { %>npm i --no-progress<% } else { %>yarn --silent<% } %>
+      - run: <% if (packageManager === 'npm') { %>npm i --no-progress<% } else { %>yarn --silent<% } %>
       - save_cache:
           key: ~/<%= name %>-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
@@ -27,10 +27,10 @@ jobs:
       - checkout
       - restore_cache:
           key: ~/<%= name %>-{{ .Branch }}-{{ checksum "package.json" }}
-      - run: <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> lint
-      - run: <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> test <% if (packageManager === 'npm') { %> -- <% } %>--configuration ci
-      - run: <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> e2e
-      - run: <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> coverage
+      - run: <% if (packageManager === 'npm') { %>npm run<% } else { %>yarn<% } %> lint
+      - run: <% if (packageManager === 'npm') { %>npm run<% } else { %>yarn<% } %> test<% if (packageManager === 'npm') { %> --<% } %> --configuration ci
+      - run: <% if (packageManager === 'npm') { %>npm run<% } else { %>yarn<% } %> e2e
+      - run: <% if (packageManager === 'npm') { %>npm run<% } else { %>yarn<% } %> coverage
 
 workflows:
   version: 2

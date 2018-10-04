@@ -27,7 +27,7 @@ install:
 script:
   # Use Chromium instead of Chrome.
   - export CHROME_BIN=chromium-browser
-  - <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> lint
-  - <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> test <% if (packageManager === 'npm') { %> -- <% } %>--configuration ci
-  - <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> e2e
-  - <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> coverage
+  - <% if (packageManager === 'npm') { %>npm run<% } else { %>yarn<% } %> lint
+  - <% if (packageManager === 'npm') { %>npm run<% } else { %>yarn<% } %> test<% if (packageManager === 'npm') { %> --<% } %> --configuration ci
+  - <% if (packageManager === 'npm') { %>npm run<% } else { %>yarn<% } %> e2e
+  - <% if (packageManager === 'npm') { %>npm run<% } else { %>yarn<% } %> coverage
