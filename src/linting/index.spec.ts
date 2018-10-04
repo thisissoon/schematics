@@ -74,11 +74,11 @@ describe('linting', () => {
       expect(contents.devDependencies['stylelint-scss']).toEqual('^3.3.1');
       expect(contents.devDependencies['tslint-config-prettier']).toEqual('^1.15.0');
 
-      expect(contents.scripts['lint']).toEqual('npm run prettier && npm run nglint && npm run stylelint');
-      expect(contents.scripts['lint:fix']).toEqual('npm run prettier -- --write && npm run stylelint -- --fix && npm run nglint -- --fix');
+      expect(contents.scripts['lint']).toEqual('npm run stylelint && npm run nglint && npm run prettier');
+      expect(contents.scripts['lint:fix']).toEqual('npm run stylelint -- --fix && npm run nglint -- --fix && npm run prettier -- --write');
       expect(contents.scripts['nglint']).toEqual('ng lint');
       expect(contents.scripts['stylelint']).toEqual('stylelint --syntax scss "src/**/*.{css,scss}"');
-      expect(contents.scripts['prettier']).toEqual('prettier --config .prettierrc "src/**/*.{ts,js,json,css,scss}"');
+      expect(contents.scripts['prettier']).toEqual('prettier --config .prettierrc -l "src/**/*.{ts,js,json,css,scss}"');
       done();
     });
   });
