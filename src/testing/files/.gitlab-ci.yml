@@ -15,9 +15,9 @@ stages:
 setup:
   stage: setup
   image: circleci/node:8.11.2-browsers
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    untracked: true
+  artifacts:
+    expire_in: 1d
+    name: ${CI_COMMIT_SHA}
     paths:
       - node_modules/
   script:
@@ -32,14 +32,6 @@ setup:
 test_unit:
   stage: test
   image: circleci/node:8.11.2-browsers
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    untracked: true
-    policy: pull
-    paths:
-      - node_modules/
-  before_script:
-    - <% if (packageManager === 'npm') { %>npm i --no-progress<% } else { %>yarn --silent<% } %>
   script:
     - <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> lint
     - <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> test <% if (packageManager === 'npm') { %> -- <% } %>--configuration ci
@@ -50,14 +42,6 @@ test_unit:
 test_integration:
   stage: test
   image: circleci/node:8.11.2-browsers
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    untracked: true
-    policy: pull
-    paths:
-      - node_modules/
-  before_script:
-    - <% if (packageManager === 'npm') { %>npm i --no-progress<% } else { %>yarn --silent<% } %>
   script:
     - <% if (packageManager === 'npm') { %>npm run<% } else { %> yarn<% } %> e2e
 

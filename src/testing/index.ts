@@ -78,7 +78,6 @@ function updatePackageJson(): Rule {
 
     pkgJson.devDependencies['karma-mocha-reporter'] = '^2.2.5';
     pkgJson.devDependencies['coveralls'] = '^3.0.0';
-    pkgJson.scripts['test:ci'] = 'npm test -- --configuration ci';
     pkgJson.scripts['coverage'] = 'coveralls < coverage/lcov.info';
 
     tree.overwrite(pkgJsonPath, JSON.stringify(pkgJson, null, 2));
@@ -97,7 +96,7 @@ function updateAngularJson(): Rule {
           ci: {
             codeCoverage: true,
             progress: false,
-            browsers: 'ChromeNoSandbox',
+            browsers: 'ChromeHeadless',
             watch: false
           }
         }
@@ -126,14 +125,10 @@ function updateKarmaConfig(): Rule {
     let sourceText = buffer.toString();
 
     sourceText = sourceText
-      .split(data.karmaPluginsFind)
-      .join(data.karmaPluginsReplace)
-      .split(data.karmaCoverageFind)
-      .join(data.karmaCoverageReplace)
-      .split(data.karmaReportersFind)
-      .join(data.karmaReportersReplace)
-      .split(data.karmaCustomLaunchFind)
-      .join(data.karmaCustomLaunchReplace);
+      .replace(data.karmaPluginsFind, data.karmaPluginsReplace)
+      .replace(data.karmaCoverageFind, data.karmaCoverageReplace)
+      .replace(data.karmaReportersFind, data.karmaReportersReplace)
+      .replace(data.karmaCustomLaunchFind, data.karmaCustomLaunchReplace);
 
     tree.overwrite(karmaPath, sourceText);
   }
@@ -150,8 +145,7 @@ function updateProtractorConfig(): Rule {
     let sourceText = buffer.toString();
 
     sourceText = sourceText
-      .split(data.protractorCapFind)
-      .join(data.protractorCapReplace);
+      .replace(data.protractorCapFind, data.protractorCapReplace);
 
     tree.overwrite(protractorPath, sourceText);
   }

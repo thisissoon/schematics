@@ -11,16 +11,10 @@ export const karmaReportersReplace = `reporters: config.angularCli && config.ang
         ['mocha', 'kjhtml'],`;
 
 export const karmaCustomLaunchFind = `browsers: ['Chrome'],`;
-export const karmaCustomLaunchReplace = `browsers: ['Chrome'],
-    customLaunchers: {
-      ChromeNoSandbox: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
-    },`;
+export const karmaCustomLaunchReplace = `browsers: ['ChromeHeadless'],`;
 
 export const protractorCapFind = `'browserName': 'chrome'`;
 export const protractorCapReplace = `browserName: 'chrome',
     chromeOptions: {
-      args: ['--no-sandbox']
+      args: ['--headless', '--no-sandbox']
     }`;
