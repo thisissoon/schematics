@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.17"></a>
+# [1.0.0-alpha.17](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.16...v1.0.0-alpha.17) (2018-10-08)
+
+
+### Bug Fixes
+
+* **npm:** ignore .git, .vscode and .circleci folders when publishing package ([07beee5](https://github.com/thisissoon/schematics/commit/07beee5))
+
+
+
 <a name="1.0.0-alpha.16"></a>
 # [1.0.0-alpha.16](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.15...v1.0.0-alpha.16) (2018-10-08)
 
