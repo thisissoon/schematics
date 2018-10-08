@@ -1,5 +1,8 @@
 # Ignores TypeScript files, but keeps definitions.
-.git
 *.ts
 !**/files/*
 !*.d.ts
+
+.git/
+.vscode/
+.circleci/
