@@ -46,11 +46,9 @@ describe('linting', () => {
   });
 
   it('should generate files', (done) => {
-    const filePrettierignore = '/.prettierignore';
     const filePrettier = '/.prettierrc';
     const fileStylelint = '/.stylelintrc';
     appTreeAsync.subscribe(tree => {
-      expect(tree.exists(filePrettierignore)).toBeTruthy();
       expect(tree.exists(filePrettier)).toBeTruthy();
       expect(tree.exists(fileStylelint)).toBeTruthy();
       done();
