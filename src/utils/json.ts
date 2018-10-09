@@ -1,6 +1,5 @@
 import { Tree } from '@angular-devkit/schematics';
 
-
 export function getJsonFile(path: string, tree: Tree, defaultObj: any = {}) {
   let json;
   const buffer = tree.read(path);

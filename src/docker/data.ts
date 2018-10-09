@@ -1,5 +1,5 @@
 export function getDockerReadMeText(name: string) {
- return `
+  return `
 ## Docker
 
 To build a image locally run:

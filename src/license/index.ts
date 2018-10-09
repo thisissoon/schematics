@@ -1,15 +1,15 @@
+import { strings } from '@angular-devkit/core';
 import {
+  apply,
+  branchAndMerge,
+  chain,
+  mergeWith,
   Rule,
   SchematicContext,
+  template,
   Tree,
-  chain,
-  branchAndMerge,
-  mergeWith,
-  apply,
   url,
-  template
 } from '@angular-devkit/schematics';
-import { strings } from '@angular-devkit/core';
 import { LicenseSchema } from './schema.model';
 
 export default function(options: LicenseSchema): Rule {
@@ -20,13 +20,12 @@ export default function(options: LicenseSchema): Rule {
       template({
         ...strings,
         ...options,
-      })
+      }),
     ]);
 
-    return chain([
-      branchAndMerge(chain([
-        mergeWith(templateSource),
-      ])),
-    ])(tree, context);
+    return chain([branchAndMerge(chain([mergeWith(templateSource)]))])(
+      tree,
+      context,
+    );
   };
 }

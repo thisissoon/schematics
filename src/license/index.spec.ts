@@ -1,14 +1,16 @@
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
+import {
+  SchematicTestRunner,
+  UnitTestTree,
+} from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { LicenseSchema } from './schema.model';
-
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('license', () => {
   const runner = new SchematicTestRunner(
     '@thisissoon/schematics',
-    collectionPath
+    collectionPath,
   );
 
   const defaultOptions: LicenseSchema = {

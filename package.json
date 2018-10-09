@@ -36,6 +36,10 @@
     "build": "tsc -p tsconfig.json",
     "pretest": "npm run build",
     "test": "jasmine **/*.spec.js",
+    "lint": "npm run tslint && npm run prettier",
+    "lint:fix": "npm run tslint -- --fix && npm run prettier -- --write",
+    "tslint": "tslint -c tslint.json \"src/**/!(files)/*[^.d$].ts\"",
+    "prettier": "prettier --config .prettierrc -l \"src/**/*.{ts,json}\"",
     "release": "standard-version",
     "postrelease": "npm run build"
   },
@@ -50,11 +54,32 @@
   },
   "devDependencies": {
     "cz-conventional-changelog": "^2.1.0",
-    "standard-version": "^4.4.0"
+    "husky": "^1.1.1",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3",
+    "standard-version": "^4.4.0",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/!(files)/*[^.d$].ts": [
+      "tslint -c tslint.json --fix",
+      "git add"
+    ],
+    "src/**/*.{ts,js,json,css,scss}": [
+      "prettier --config .prettierrc --write",
+      "git add"
+    ]
   }
 }

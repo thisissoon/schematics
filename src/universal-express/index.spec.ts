@@ -1,21 +1,27 @@
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
-import { Schema as UniversalOptions } from '@schematics/angular/universal/schema';
+import {
+  SchematicTestRunner,
+  UnitTestTree,
+} from '@angular-devkit/schematics/testing';
 import { Schema as ApplicationOptions } from '@schematics/angular/application/schema';
+import { Schema as UniversalOptions } from '@schematics/angular/universal/schema';
 import { Schema as WorkspaceOptions } from '@schematics/angular/workspace/schema';
 import * as path from 'path';
 
-const angularCollectionPath = path.join(__dirname, '../../node_modules/@schematics/angular/collection.json');
+const angularCollectionPath = path.join(
+  __dirname,
+  '../../node_modules/@schematics/angular/collection.json',
+);
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('universal express', () => {
   const angularSchematicRunner = new SchematicTestRunner(
     '@schematics/angular',
-    angularCollectionPath
+    angularCollectionPath,
   );
 
   const runner = new SchematicTestRunner(
     '@thisissoon/schematics',
-    collectionPath
+    collectionPath,
   );
 
   const defaultOptions: UniversalOptions = {
@@ -29,21 +35,28 @@ describe('universal express', () => {
   };
 
   const appOptions: ApplicationOptions = {
-    name: 'bar',
     inlineStyle: false,
     inlineTemplate: false,
+    name: 'bar',
+    projectRoot: '',
     routing: false,
-    style: 'css',
-    skipTests: false,
     skipPackageJson: false,
-    projectRoot: ''
+    skipTests: false,
+    style: 'css',
   };
 
   let appTree: UnitTestTree;
 
   beforeEach(() => {
-    appTree = angularSchematicRunner.runSchematic('workspace', workspaceOptions);
-    appTree = angularSchematicRunner.runSchematic('application', appOptions, appTree);
+    appTree = angularSchematicRunner.runSchematic(
+      'workspace',
+      workspaceOptions,
+    );
+    appTree = angularSchematicRunner.runSchematic(
+      'application',
+      appOptions,
+      appTree,
+    );
     appTree = runner.runSchematic('universal-express', defaultOptions, appTree);
   });
 
@@ -58,20 +71,32 @@ describe('universal express', () => {
     const filePath = '/src/app/app.server.module.ts';
     expect(appTree.exists(filePath)).toBeTruthy();
     const contents = appTree.readContent(filePath);
-    expect(contents).toMatch(/import { ModuleMapLoaderModule } from '@nguniversal\/module-map-ngfactory-loader'/);
+    expect(contents).toMatch(
+      /import { ModuleMapLoaderModule } from '@nguniversal\/module-map-ngfactory-loader'/,
+    );
   });
 
   it('should update package json', () => {
     const filePath = '/package.json';
     expect(appTree.exists(filePath)).toBeTruthy();
     const contents = JSON.parse(appTree.readContent(filePath));
-    expect(contents.dependencies['@nguniversal/express-engine']).toEqual('^6.1.0');
-    expect(contents.dependencies['@nguniversal/module-map-ngfactory-loader']).toEqual('^6.1.0');
-    expect(contents.dependencies['express']).toEqual('^4.16.3');
+    expect(contents.dependencies['@nguniversal/express-engine']).toEqual(
+      '^6.1.0',
+    );
+    expect(
+      contents.dependencies['@nguniversal/module-map-ngfactory-loader'],
+    ).toEqual('^6.1.0');
+    expect(contents.dependencies.express).toEqual('^4.16.3');
     expect(contents.dependencies['ts-loader']).toEqual('^5.2.1');
-    expect(contents.scripts['build:ssr']).toEqual('npm run build:client-and-server-bundles && npm run webpack:server');
+    expect(contents.scripts['build:ssr']).toEqual(
+      'npm run build:client-and-server-bundles && npm run webpack:server',
+    );
     expect(contents.scripts['serve:ssr']).toEqual('node dist/server.js');
-    expect(contents.scripts['build:client-and-server-bundles']).toEqual('ng build --prod && ng run bar:server');
-    expect(contents.scripts['webpack:server']).toEqual('webpack --config webpack.server.js --progress --colors');
+    expect(contents.scripts['build:client-and-server-bundles']).toEqual(
+      'ng build --prod && ng run bar:server',
+    );
+    expect(contents.scripts['webpack:server']).toEqual(
+      'webpack --config webpack.server.js --progress --colors',
+    );
   });
 });

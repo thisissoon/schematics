@@ -1,5 +1,5 @@
-import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
+import 'zone.js/dist/zone-node';
 
 import { enableProdMode } from '@angular/core';
 import { ngExpressEngine } from '@nguniversal/express-engine';
@@ -19,19 +19,19 @@ const distFolder = join(process.cwd(), 'dist');
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const {
   AppServerModuleNgFactory,
-  LAZY_MODULE_MAP
+  LAZY_MODULE_MAP,
 } = require('./dist/<%= clientProject %>-server/main');
 
 const {
-  provideModuleMap
+  provideModuleMap,
 } = require('@nguniversal/module-map-ngfactory-loader');
 
 app.engine(
   'html',
   ngExpressEngine({
     bootstrap: AppServerModuleNgFactory,
-    providers: [provideModuleMap(LAZY_MODULE_MAP)]
-  })
+    providers: [provideModuleMap(LAZY_MODULE_MAP)],
+  }),
 );
 
 app.set('view engine', 'html');

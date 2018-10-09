@@ -1,28 +1,27 @@
+import { strings } from '@angular-devkit/core';
 import {
+  apply,
+  branchAndMerge,
+  chain,
+  externalSchematic,
+  mergeWith,
   Rule,
   SchematicContext,
-  Tree,
-  chain,
-  branchAndMerge,
-  mergeWith,
-  apply,
-  url,
+  SchematicsException,
   template,
-  externalSchematic,
-  SchematicsException
+  Tree,
+  url,
 } from '@angular-devkit/schematics';
-import { strings } from '@angular-devkit/core';
 import { Schema as UniversalSchema } from '@schematics/angular/universal/schema';
 import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
 
-import { universalReadMeText } from './data';
-import { addNPMInstallTask } from '../utils/npm';
 import { getJsonFile } from '../utils/json';
+import { addNPMInstallTask } from '../utils/npm';
+import { universalReadMeText } from './data';
 
 export default function(options: UniversalSchema): Rule {
-
   return (tree: Tree, context: SchematicContext) => {
     const angularCliConfigPath = '/angular.json';
     const cliJson = getJsonFile(angularCliConfigPath, tree);
@@ -32,19 +31,21 @@ export default function(options: UniversalSchema): Rule {
       template({
         ...strings,
         ...options,
-      })
+      }),
     ]);
 
     addNPMInstallTask(context);
 
     return chain([
-      branchAndMerge(chain([
-        externalSchematic('@schematics/angular', 'universal', options),
-        addModuleToServerModule(),
-        mergeWith(templateSource),
-        updatePackageJson(options),
-        updateReadme()
-      ])),
+      branchAndMerge(
+        chain([
+          externalSchematic('@schematics/angular', 'universal', options),
+          addModuleToServerModule(),
+          mergeWith(templateSource),
+          updatePackageJson(options),
+          updateReadme(),
+        ]),
+      ),
     ])(tree, context);
   };
 }
@@ -57,17 +58,21 @@ function updatePackageJson(options: UniversalSchema): Rule {
 
     pkgJson.dependencies['@nguniversal/express-engine'] = '^6.1.0';
     pkgJson.dependencies['@nguniversal/module-map-ngfactory-loader'] = '^6.1.0';
-    pkgJson.dependencies['express'] = '^4.16.3';
+    pkgJson.dependencies.express = '^4.16.3';
     pkgJson.dependencies['ts-loader'] = '^5.2.1';
     pkgJson.dependencies['webpack-cli'] = '^3.1.2';
 
-    pkgJson.scripts['build:ssr'] = 'npm run build:client-and-server-bundles && npm run webpack:server';
+    pkgJson.scripts['build:ssr'] =
+      'npm run build:client-and-server-bundles && npm run webpack:server';
     pkgJson.scripts['serve:ssr'] = 'node dist/server.js';
-    pkgJson.scripts['build:client-and-server-bundles'] = `ng build --prod && ng run ${options.clientProject}:server`;
-    pkgJson.scripts['webpack:server'] = 'webpack --config webpack.server.js --progress --colors';
+    pkgJson.scripts[
+      'build:client-and-server-bundles'
+    ] = `ng build --prod && ng run ${options.clientProject}:server`;
+    pkgJson.scripts['webpack:server'] =
+      'webpack --config webpack.server.js --progress --colors';
 
     tree.overwrite(pkgJsonPath, JSON.stringify(pkgJson, null, 2));
-  }
+  };
 }
 
 function addModuleToServerModule(): Rule {
@@ -79,14 +84,19 @@ function addModuleToServerModule(): Rule {
       throw new SchematicsException(`File ${modulePath} does not exist.`);
     }
     const sourceText = text.toString('utf-8');
-    const source = ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
+    const source = ts.createSourceFile(
+      modulePath,
+      sourceText,
+      ts.ScriptTarget.Latest,
+      true,
+    );
 
     const importModulePath = '@nguniversal/module-map-ngfactory-loader';
     const changes = addImportToModule(
       source as any,
       modulePath,
       `ModuleMapLoaderModule`,
-      importModulePath
+      importModulePath,
     );
 
     const recorder = tree.beginUpdate(modulePath);
@@ -102,7 +112,7 @@ function addModuleToServerModule(): Rule {
 }
 
 function updateReadme(): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
+  return (tree: Tree) => {
     const readMeFile = 'README.md';
     const buffer = tree.read(readMeFile);
     let content: string = '';
@@ -116,5 +126,5 @@ function updateReadme(): Rule {
     tree.overwrite(readMeFile, content);
 
     return tree;
-  }
+  };
 }

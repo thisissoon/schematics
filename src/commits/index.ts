@@ -1,49 +1,45 @@
 import {
+  branchAndMerge,
+  chain,
   Rule,
   SchematicContext,
   Tree,
-  chain,
-  branchAndMerge
 } from '@angular-devkit/schematics';
+import { getJsonFile } from '../utils/json';
 import { addNPMInstallTask } from '../utils/npm';
 import { commitReadMeText } from './data';
-import { getJsonFile } from '../utils/json';
 
 export default function(): Rule {
-
   return (tree: Tree, context: SchematicContext) => {
     addNPMInstallTask(context);
 
     return chain([
-      branchAndMerge(chain([
-        updatePackageJson(),
-        updateReadme()
-      ])),
+      branchAndMerge(chain([updatePackageJson(), updateReadme()])),
     ])(tree, context);
   };
 }
 
 function updatePackageJson(): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
+  return (tree: Tree) => {
     const pkgJsonPath = '/package.json';
     const defaultObj = { scripts: {}, dependencies: {} };
     const pkgJson = getJsonFile(pkgJsonPath, tree, defaultObj);
 
     pkgJson.devDependencies['cz-conventional-changelog'] = '^2.1.0';
     pkgJson.devDependencies['standard-version'] = '^4.3.0';
-    pkgJson.scripts['release'] = 'standard-version';
+    pkgJson.scripts.release = 'standard-version';
     pkgJson.config = {
       commitizen: {
-        path: './node_modules/cz-conventional-changelog'
-      }
-    }
+        path: './node_modules/cz-conventional-changelog',
+      },
+    };
 
     tree.overwrite(pkgJsonPath, JSON.stringify(pkgJson, null, 2) + '\n');
-  }
+  };
 }
 
 function updateReadme(): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
+  return (tree: Tree) => {
     const readMeFile = 'README.md';
     const buffer = tree.read(readMeFile);
     let content: string = '';
@@ -57,6 +53,5 @@ function updateReadme(): Rule {
     tree.overwrite(readMeFile, content);
 
     return tree;
-  }
+  };
 }
-
