@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-alpha.18"></a>
+# [1.0.0-alpha.18](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.17...v1.0.0-alpha.18) (2018-10-09)
+
+
+### Features
+
+* **linting:** add trailing comma and remove defaults from config ([dc9a3b3](https://github.com/thisissoon/schematics/commit/dc9a3b3))
+* **linting:** prefer more stylelint default options ([71c8f69](https://github.com/thisissoon/schematics/commit/71c8f69))
+
+
+
 <a name="1.0.0-alpha.17"></a>
 # [1.0.0-alpha.17](https://github.com/thisissoon/schematics/compare/v1.0.0-alpha.16...v1.0.0-alpha.17) (2018-10-08)
 
